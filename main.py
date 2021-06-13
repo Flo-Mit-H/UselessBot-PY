@@ -66,6 +66,7 @@ async def no_permission(message: discord.Message):
     await message.reply(replace_relevant(responses["no-permission"]))
 
 
+print("Logging in...")
 print("Loading Mod Commands")
 client.load_extension("mod")
 print("Loaded Mod Commands")
@@ -81,5 +82,4 @@ print("Loaded Ping Command")
 print("Loading Minecraft Console Extension")
 client.load_extension("minecraft")
 print("Loaded Minecraft Console Extension")
-print("Logging in...")
 client.run(open("token.txt", "r").read())
