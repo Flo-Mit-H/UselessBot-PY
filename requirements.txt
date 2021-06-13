@@ -1,4 +1,4 @@
-discord
+discord~=1.0.1
 aiohttp
 async-timeout
 attrs
@@ -10,3 +10,4 @@ pip
 setuptools
 typing-extensions
 yarl
+mcrcon
