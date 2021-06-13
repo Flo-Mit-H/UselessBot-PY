@@ -1,5 +1,5 @@
 # UselessBot
-## Useless Bot Discord Bot made with Python
+## UselessBot Discord Bot made with Python
 
 <br>
 
