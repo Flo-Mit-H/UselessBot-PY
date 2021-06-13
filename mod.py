@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_permissions, MissingPermissions
 
 import main
 
@@ -10,6 +11,7 @@ class Mod(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
         if main.config["ban-dm"]:
             await member.send(main.replace_relevant(main.responses["dm-banned"]).replace("%%reason%%", str(reason)))
@@ -20,7 +22,13 @@ class Mod(commands.Cog):
         await channel.send(main.replace_relevant(main.responses["member-banned"].replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                  .replace("%%reason%%", str(reason))))
 
+    @ban.error
+    async def ban_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            main.no_permission(ctx.message)
+
     @commands.command()
+    @has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
         if main.config["kick-dm"]:
             await member.send(main.replace_relevant(main.responses["dm-kicked"]).replace("%%reason%%", str(reason)))
@@ -31,7 +39,13 @@ class Mod(commands.Cog):
         await channel.send(main.replace_relevant(main.responses["member-kicked"].replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                  .replace("%%reason%%", str(reason))))
 
+    @kick.error
+    async def kick_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            main.no_permission(ctx.message)
+
     @commands.command()
+    @has_permissions(unban_members=True)
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
@@ -43,6 +57,11 @@ class Mod(commands.Cog):
                 await ctx.guild.unban(user)
                 await ctx.send(main.replace_relevant(main.responses["user-unbanned"].replace("%%user%%", f"{user.name}#{user.discriminator}")))
                 return
+
+    @unban.error
+    async def unban_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            main.no_permission(ctx.message)
 
 
 def setup(bot):

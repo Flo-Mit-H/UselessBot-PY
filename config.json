@@ -26,7 +26,8 @@
         "dm-kicked": "Du wurdest wegen %%reason%% gekickt.",
         "dm-unbanned": "Du wurdest von %%guild%% entbannt.",
         "user-unbanned": "Der User %%user%% wurde entbannt.",
-        "member-not-found": "Der User wurde nicht gefunden."
+        "member-not-found": "Der User wurde nicht gefunden.",
+        "no-permission": "Dazu hast du keine Rechte!"
     },
     "log-channel": 853631323004469258,
     "server-invite": "https://discord.gg/sfaMmhqMWx",

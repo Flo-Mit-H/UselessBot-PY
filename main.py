@@ -62,6 +62,10 @@ def is_int(s):
         return False
 
 
+def no_permission(message: discord.Message):
+    await message.reply(replace_relevant(responses["no-permission"]))
+
+
 print("Logging in...")
 print("Loading Mod Extension")
 client.load_extension("mod")

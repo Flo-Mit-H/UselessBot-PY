@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord.ext.commands import has_permissions, MissingPermissions
 
 import main
 
@@ -11,6 +12,7 @@ class Clear(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=["purge"])
+    @has_permissions(manage_messages=True)
     async def clear(self, ctx, amount):
         if amount is None or amount == "":
             amount = 10
@@ -19,6 +21,11 @@ class Clear(commands.Cog):
             await ctx.send(main.replace_relevant(self.responses["clear-command-success"].replace("%%amount%%", str(amount))), delete_after=3)
         else:
             await ctx.send(main.replace_relevant(self.responses["valid-integer"]), delete_after=3)
+
+    @clear.error
+    async def clear_error(self, ctx, error):
+        if isinstance(error, MissingPermissions):
+            main.no_permission(ctx.message)
 
 
 def setup(bot):
