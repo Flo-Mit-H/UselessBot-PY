@@ -1,5 +1,5 @@
-# Discord Test Bot
-## Flos first Discord Bot with Python
+# UselessBot
+## Useless Bot Discord Bot made with Python
 
 <br>
 
