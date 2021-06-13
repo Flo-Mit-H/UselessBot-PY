@@ -28,8 +28,7 @@ class Minecraft(commands.Cog):
                         feedback = feedback.replace(char, "")
                     await message.channel.send(f"```{feedback}```")
             except ConnectionRefusedError:
-                await message.channel.send(f"Verbindung zum Server {config['server-host']}:{config['server-port']} "
-                                           f"with password {config['server-password']} fehlgeschlagen")
+                await message.channel.send(f"Verbindung zum Server {config['server-host']}:{config['server-port']} ist fehlgeschlagen")
 
 
 def setup(bot):
