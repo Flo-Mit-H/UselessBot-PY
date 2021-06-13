@@ -62,7 +62,7 @@ def is_int(s):
         return False
 
 
-def no_permission(message: discord.Message):
+async def no_permission(message: discord.Message):
     await message.reply(replace_relevant(responses["no-permission"]))
 
 

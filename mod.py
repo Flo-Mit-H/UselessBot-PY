@@ -25,7 +25,7 @@ class Mod(commands.Cog):
     @ban.error
     async def ban_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            main.no_permission(ctx.message)
+            await main.no_permission(ctx.message)
 
     @commands.command()
     @has_permissions(kick_members=True)
@@ -42,10 +42,10 @@ class Mod(commands.Cog):
     @kick.error
     async def kick_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            main.no_permission(ctx.message)
+            await main.no_permission(ctx.message)
 
     @commands.command()
-    @has_permissions(unban_members=True)
+    @has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
@@ -61,7 +61,7 @@ class Mod(commands.Cog):
     @unban.error
     async def unban_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            main.no_permission(ctx.message)
+            await main.no_permission(ctx.message)
 
 
 def setup(bot):

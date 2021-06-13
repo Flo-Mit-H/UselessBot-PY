@@ -10,7 +10,7 @@ class Prefix(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @has_permissions(manage_server=True)
+    @has_permissions(manage_guild=True)
     async def prefix(self, ctx, new_prefix):
         main.config["prefix"] = new_prefix
         await ctx.send(main.replace_relevant(main.responses["prefix-command"]))
@@ -18,7 +18,7 @@ class Prefix(commands.Cog):
     @prefix.error
     async def prefix_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            main.no_permission(ctx.message)
+            await main.no_permission(ctx.message)
 
 
 def setup(bot):
