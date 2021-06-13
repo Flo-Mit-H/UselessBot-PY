@@ -63,9 +63,9 @@ def is_int(s):
 
 
 print("Logging in...")
-print("Loading Ban Extension")
-client.load_extension("ban")
-print("Loaded Ban Extension")
+print("Loading Mod Extension")
+client.load_extension("mod")
+print("Loaded Mod Extension")
 print("Loading Clear Extension")
 client.load_extension("clear")
 print("Loaded Clear extension")

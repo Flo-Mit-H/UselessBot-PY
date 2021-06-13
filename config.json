@@ -16,9 +16,21 @@
         ]
     },
     "responses": {
-        "ping-command": "My Ping is: %%ping%%ms.",
-        "prefix-command": "The new Prefix is now %%prefix%%.",
-        "clear-command-success": "Cleared %%amount%% messages.",
-        "valid-integer": "Please Provide a valid Integer"
-    }
+        "ping-command": "Mein Ping ist: %%ping%%ms.",
+        "prefix-command": "Mein Neuer Prefix ist nun %%prefix%%.",
+        "clear-command-success": "%%amount%% Nachrichten gelöscht.",
+        "valid-integer": "Bitte benutze eine Zahl!",
+        "member-banned": "%%member%% wurde wegen %%reason%% gebannt.",
+        "member-kicked": "%%member%% wurde wegen %%reason%% gekickt.",
+        "dm-banned": "Du wurdest wegen %%reason%% gebannt.",
+        "dm-kicked": "Du wurdest wegen %%reason%% gekickt.",
+        "dm-unbanned": "Du wurdest von %%guild%% entbannt.",
+        "user-unbanned": "Der User %%user%% wurde entbannt.",
+        "member-not-found": "Der User wurde nicht gefunden."
+    },
+    "log-channel": 853631323004469258,
+    "server-invite": "https://discord.gg/sfaMmhqMWx",
+    "ban-dm": true,
+    "kick-dm": true,
+    "unban-dm": true
 }
