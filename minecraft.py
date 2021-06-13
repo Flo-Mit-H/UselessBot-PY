@@ -13,22 +13,23 @@ class Minecraft(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if not message.channel.id == main.config["minecraft"]["console-channel"]:
+        config = main.config["minecraft"]
+        if not message.channel.id == config["console-channel"]:
             return
         if message.author.bot:
             return
-        if message.content.startswith(main.config["minecraft"]["prefix"]):
-            command = message.content[len(main.config["minecraft"]["prefix"]):]
+        if message.content.startswith(config["prefix"]):
+            command = message.content[len(config["prefix"]):]
             try:
-                with mcrcon.MCRcon(host=main.config["minecraft"]["server-host"], password=main.config["minecraft"]["server-password"], port=main.config["minecraft"]["server-port"]) as server:
+                with mcrcon.MCRcon(host=config["server-host"], password=config["server-password"], port=config["server-port"]) as server:
                     server.connect()
                     feedback = server.command(command)
                     for char in self.invalid_characters:
                         feedback = feedback.replace(char, "")
                     await message.channel.send(f"```{feedback}```")
             except ConnectionRefusedError:
-                await message.channel.send(f"Verbindung zum Server {main.config['minecraft']['server-host']}:{main.config['minecraft']['server-port']} "
-                                           f"with password {main.config['minecraft']['server-password']} fehlgeschlagen")
+                await message.channel.send(f"Verbindung zum Server {config['server-host']}:{config['server-port']} "
+                                           f"with password {config['server-password']} fehlgeschlagen")
 
 
 def setup(bot):
