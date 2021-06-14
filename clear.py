@@ -25,7 +25,7 @@ class Clear(commands.Cog):
     @clear.error
     async def clear_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            main.no_permission(ctx.message)
+            await main.no_permission(ctx.message)
 
 
 def setup(bot):
