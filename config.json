@@ -32,7 +32,8 @@
         "reaction-role-command-success": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!",
         "load-extension-success": "Erweiterung %%extension%% wurde erfolgreich geladen!",
         "unload-extension-success": "Erweiterung %%extension%% wurde erfolgreich entladen!",
-        "reload-extension-success": "Erweiterung %%extension%% wurde erfolgreich neu geladen!"
+        "reload-extension-success": "Erweiterung %%extension%% wurde erfolgreich neu geladen!",
+        "join-role-success": "Join-Rolle %%role(mention)%% wurde erfolgreich hinzugefügt!"
     },
     "log-channel": 853631323004469258,
     "server-invite": "https://discord.gg/sfaMmhqMWx",
@@ -54,6 +55,9 @@
         "leave-message": "Der Hurensohn %%member%% is geleavt :crying_face:"
     },
     "reaction-roles": [
+
+    ],
+    "join-roles": [
 
     ]
 }
