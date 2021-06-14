@@ -29,7 +29,10 @@
         "member-not-found": "Der User wurde nicht gefunden.",
         "no-permission": "Dazu hast du keine Rechte!",
         "reaction-role-command-invalid": "Bitte benutze %%prefix%%reactrole <message_id> <emoji> <role_id>",
-        "reaction-role-command-success": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!"
+        "reaction-role-command-success": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!",
+        "load-extension-success": "Erweiterung %%extension%% wurde erfolgreich geladen!",
+        "unload-extension-success": "Erweiterung %%extension%% wurde erfolgreich entladen!",
+        "reload-extension-success": "Erweiterung %%extension%% wurde erfolgreich neu geladen!"
     },
     "log-channel": 853631323004469258,
     "server-invite": "https://discord.gg/sfaMmhqMWx",
