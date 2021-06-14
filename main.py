@@ -4,11 +4,21 @@ import json
 import discord
 from discord.ext import commands
 
-config = json.load(open("config.json", "r"))
+config = json.load(open(file="config.json", encoding="UTF-8"))
 intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix=config["prefix"], intents=intents)
 responses = config["responses"]
+
+
+def load_json(filename):
+    with open(filename, encoding="utf-8") as infile:
+        return json.load(infile)
+
+
+def write_json(filename, contents):
+    with open(filename, "w") as outfile:
+        json.dump(contents, outfile, ensure_ascii=True, indent=4)
 
 
 @client.event
@@ -95,5 +105,8 @@ print("Loaded Minecraft Console Extension")
 print("Loading Join Messages Extension")
 client.load_extension("join-messages")
 print("Loaded Join Messages Extensions")
+print("Loading Reaction Roles Extension")
+client.load_extension("reactroles")
+print("Loaded Reaction Roles Extension")
 print("Logging in...")
 client.run(open("token.txt", "r").read())

@@ -18,7 +18,7 @@
     "responses": {
         "ping-command": "Mein Ping ist: %%ping%%ms.",
         "prefix-command": "Mein Neuer Prefix ist nun %%prefix%%.",
-        "clear-command-success": "%%amount%% Nachrichten gelöscht.",
+        "clear-command-success": "%%amount%% Nachrichten gel\u00f6scht.",
         "valid-integer": "Bitte benutze eine Zahl!",
         "member-banned": "%%member%% wurde wegen %%reason%% gebannt.",
         "member-kicked": "%%member%% wurde wegen %%reason%% gekickt.",
@@ -27,7 +27,9 @@
         "dm-unbanned": "Du wurdest von %%guild%% entbannt.",
         "user-unbanned": "Der User %%user%% wurde entbannt.",
         "member-not-found": "Der User wurde nicht gefunden.",
-        "no-permission": "Dazu hast du keine Rechte!"
+        "no-permission": "Dazu hast du keine Rechte!",
+        "reaction-role-command-invalid": "Bitte benutze %%prefix%%reactrole <message_id> <emoji> <role_id>",
+        "reaction-role-command-success": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!"
     },
     "log-channel": 853631323004469258,
     "server-invite": "https://discord.gg/sfaMmhqMWx",
@@ -44,8 +46,11 @@
     "join-message": {
         "join-channel": 830164698233045043,
         "leave-channel": 830164698233045043,
-        "join-message": "Fick dick du Hurensohn %%member%%",
-        "join-dm": "Fick dick du Hurensohn %%mention%% :partying_face:",
-        "leave-message": "Der Hurensohn %%member%% is endlich verreckt :thumbs_up:",
-    }
+        "join-message": "Herzlich Willkommen auf dem Server! %%mention%%",
+        "join-dm": "Herzlich willkommen auf %%server%%! :partying_face:",
+        "leave-message": "Der Hurensohn %%member%% is geleavt :crying_face:"
+    },
+    "reaction-roles": [
+
+    ]
 }
