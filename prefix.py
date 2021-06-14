@@ -13,6 +13,7 @@ class Prefix(commands.Cog):
     @has_permissions(manage_guild=True)
     async def prefix(self, ctx, new_prefix):
         main.config["prefix"] = new_prefix
+        main.save_config()
         await ctx.send(main.replace_relevant(main.responses["prefix-command"]))
 
     @prefix.error

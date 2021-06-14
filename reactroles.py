@@ -72,7 +72,7 @@ class ReactionRoles(commands.Cog):
                     "emoji": emoji,
                     "role": role_id
                 })
-                main.write_json("config.json", main.config)
+                main.save_config()
                 return
         main.config["reaction-roles"].append({
             "message-id": message_id,
@@ -83,7 +83,7 @@ class ReactionRoles(commands.Cog):
                 }
             ]
         })
-        main.write_json("config.json", main.config)
+        main.save_config()
         message = await ctx.fetch_message(message_id)
         await message.add_reaction(emoji)
         await ctx.message.delete()

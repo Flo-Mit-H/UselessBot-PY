@@ -21,6 +21,10 @@ def write_json(filename, contents):
         json.dump(contents, outfile, ensure_ascii=True, indent=4)
 
 
+def save_config():
+    write_json("config.json", config)
+
+
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user.name}#{client.user.discriminator}")
