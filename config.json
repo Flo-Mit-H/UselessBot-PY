@@ -40,5 +40,12 @@
         "server-host": "127.0.0.1",
         "server-port": 25575,
         "server-password": "1234"
+    },
+    "join-message": {
+        "join-channel": 830164698233045043,
+        "leave-channel": 830164698233045043,
+        "join-message": "Fick dick du Hurensohn %%member%%",
+        "join-dm": "Fick dick du Hurensohn %%mention%% :partying_face:",
+        "leave-message": "Der Hurensohn %%member%% is endlich verreckt :thumbs_up:",
     }
 }

@@ -5,7 +5,9 @@ import discord
 from discord.ext import commands
 
 config = json.load(open("config.json", "r"))
-client = commands.Bot(command_prefix=config["prefix"])
+intents = discord.Intents.default()
+intents.members = True
+client = commands.Bot(command_prefix=config["prefix"], intents=intents)
 responses = config["responses"]
 
 
@@ -54,6 +56,15 @@ def replace_relevant(repl):
     return repl
 
 
+def replace_member(s, member: discord.Member):
+    s = s\
+        .replace("%%member%%", f"{member.name}#{member.discriminator}")\
+        .replace("%%name%%", member.name)\
+        .replace("%%discriminator%%", member.discriminator)\
+        .replace("%%mention%%", member.mention)
+    return s
+
+
 def is_int(s):
     try:
         int(s)
@@ -81,5 +92,8 @@ print("Loaded Ping Command")
 print("Loading Minecraft Console Extension")
 client.load_extension("minecraft")
 print("Loaded Minecraft Console Extension")
+print("Loading Join Messages Extension")
+client.load_extension("join-messages")
+print("Loaded Join Messages Extensions")
 print("Logging in...")
 client.run(open("token.txt", "r").read())
