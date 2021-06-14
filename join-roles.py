@@ -16,10 +16,10 @@ class JoinRoles(commands.Cog):
             role = member.guild.get_role(role_id)
             await member.add_roles(role)
 
-    @commands.command(aliases=["joinrole"])
+    @commands.command(aliases=["joinrole", "join-role"])
     async def join_role(self, ctx, role: discord.Role):
         main.config["join-roles"].append(role.id)
-        main.write_json("newconfig.json", main.config)
+        main.write_json("config.json", main.config)
         await ctx.send(main.replace_relevant(main.responses["join-role-success"]).replace("%%role%%", role.name).replace("%%role(mention)%%", role.mention))
 
 
