@@ -1,4 +1,4 @@
-discord~=1.0.1
+discord
 aiohttp
 async-timeout
 attrs
@@ -11,3 +11,9 @@ setuptools
 typing-extensions
 yarl
 mcrcon
+PyNaCl
+ffmpeg
+youtube_dl
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

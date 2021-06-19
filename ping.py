@@ -9,7 +9,7 @@ class Ping(commands.Cog):
 
     @commands.command(aliases=["test"])
     async def ping(self, ctx):
-        await ctx.send(main.replace_relevant(main.responses["ping-command"]))
+        await ctx.send(main.replace_relevant(main.responses["ping-command"], ctx.guild))
 
 
 def setup(bot):

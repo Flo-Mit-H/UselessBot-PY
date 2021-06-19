@@ -11,12 +11,22 @@ class Modules(commands.Cog):
     @commands.command(aliases=["load-module", "load_extension", "load-extension"])
     async def load_module(self, ctx, module):
         main.client.load_extension(module)
-        await ctx.channel.send(main.replace_relevant(main.responses["load-extension-success"]).replace("%%extension%%", module))
+        await ctx.channel.send(main.replace_relevant(main.responses["load-extension-success"], ctx.guild).replace("%%extension%%", module))
+
+    @load_module.error
+    async def load_module_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "load-module")
 
     @commands.command(aliases=["unload-module", "unload_extension", "unload-extension"])
     async def unload_module(self, ctx, module):
         main.client.unload_extension(module)
-        await ctx.channel.send(main.replace_relevant(main.responses["unload-extension-success"]).replace("%%extension%%", module))
+        await ctx.channel.send(main.replace_relevant(main.responses["unload-extension-success"], ctx.guild).replace("%%extension%%", module))
+
+    @unload_module.error
+    async def unload_module_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "unload-module")
 
     @commands.command(aliases=["list-modules", "list_extensions", "list-extensions"])
     async def list_modules(self, ctx):
@@ -29,7 +39,12 @@ class Modules(commands.Cog):
     @commands.command(aliases=["reload-module", "reload_extension", "reload-extension"])
     async def reload_module(self, ctx, module):
         main.client.reload_extension(module)
-        await ctx.channel.send(main.replace_relevant(main.responses["reload-extension-success"]).replace("%%extension%%", module))
+        await ctx.channel.send(main.replace_relevant(main.responses["reload-extension-success"], ctx.guild).replace("%%extension%%", module))
+
+    @reload_module.error
+    async def reload_module_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "reload-module")
 
     @commands.command(aliases=["reload-modules", "reload_extensions", "reload-extensions"])
     async def reload_modules(self, ctx):

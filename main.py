@@ -5,10 +5,26 @@ import discord
 from discord.ext import commands
 
 config = json.load(open(file="config.json", encoding="UTF-8"))
-intents = discord.Intents.default()
-intents.members = True
-client = commands.Bot(command_prefix=config["prefix"], intents=intents)
+client = commands.Bot(command_prefix=config["prefix"], intents=discord.Intents.all())
 responses = config["responses"]
+usages = config["usages"]
+
+cogs = [
+    "clear",
+    "join_messages",
+    "join_roles",
+    "minecraft",
+    "mod",
+    "modules",
+    "music",
+    "ping",
+    "prefix",
+    "reactroles"
+]
+for cog in cogs:
+    print(f"Loading Extension {cog}")
+    client.load_extension(cog)
+    print(f"Loaded Extension {cog}")
 
 
 def load_json(filename):
@@ -63,18 +79,19 @@ async def update_task():
         await asyncio.sleep(1)
 
 
-def replace_relevant(repl):
-    repl = repl\
-        .replace("%%ping%%", str(round(client.latency * 1000)))\
-        .replace("%%prefix%%", str(config["prefix"]))
+def replace_relevant(repl, guild):
+    repl = repl \
+        .replace("%%ping%%", str(round(client.latency * 1000))) \
+        .replace("%%prefix%%", str(config["prefix"])) \
+        .replace("%%server%%", guild.name)
     return repl
 
 
 def replace_member(s, member: discord.Member):
-    s = s\
-        .replace("%%member%%", f"{member.name}#{member.discriminator}")\
-        .replace("%%name%%", member.name)\
-        .replace("%%discriminator%%", member.discriminator)\
+    s = s \
+        .replace("%%member%%", f"{member.name}#{member.discriminator}") \
+        .replace("%%name%%", member.name) \
+        .replace("%%discriminator%%", member.discriminator) \
         .replace("%%mention%%", member.mention)
     return s
 
@@ -88,35 +105,11 @@ def is_int(s):
 
 
 async def no_permission(message: discord.Message):
-    await message.reply(replace_relevant(responses["no-permission"]))
+    await message.reply(replace_relevant(responses["no-permission"], message.channel.guild))
 
 
-print("Loading Mod Commands")
-client.load_extension("mod")
-print("Loaded Mod Commands")
-print("Loading Clear Command")
-client.load_extension("clear")
-print("Loaded Clear Command")
-print("Loading Prefix Command")
-client.load_extension("prefix")
-print("Loaded Prefix Command")
-print("Loading Ping Command")
-client.load_extension("ping")
-print("Loaded Ping Command")
-print("Loading Minecraft Console Extension")
-client.load_extension("minecraft")
-print("Loaded Minecraft Console Extension")
-print("Loading Join Messages Extension")
-client.load_extension("join-messages")
-print("Loaded Join Messages Extensions")
-print("Loading Reaction Roles Extension")
-client.load_extension("reactroles")
-print("Loaded Reaction Roles Extension")
-print("Loading Modules Extension")
-client.load_extension("modules")
-print("Loaded Modules Extension")
-print("Loading Join Roles Extension")
-client.load_extension("join-roles")
-print("Loaded Join Roles Extension")
-print("Logging in...")
+async def send_usage(ctx, name):
+    await ctx.send(replace_relevant(usages[f"{name}-usage"], ctx.guild))
+
+
 client.run(open("token.txt", "r").read())

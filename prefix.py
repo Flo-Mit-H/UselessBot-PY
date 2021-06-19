@@ -14,12 +14,14 @@ class Prefix(commands.Cog):
     async def prefix(self, ctx, new_prefix):
         main.config["prefix"] = new_prefix
         main.save_config()
-        await ctx.send(main.replace_relevant(main.responses["prefix-command"]))
+        await ctx.send(main.replace_relevant(main.responses["prefix-command"], ctx.guild))
 
     @prefix.error
     async def prefix_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
             await main.no_permission(ctx.message)
+        elif isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "prefix")
 
 
 def setup(bot):

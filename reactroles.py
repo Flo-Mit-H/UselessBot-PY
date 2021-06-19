@@ -60,9 +60,9 @@ class ReactionRoles(commands.Cog):
             role_id = ctx.message.role_mentions[0].id
 
         if message_id is None or emoji is None or role_id is None:
-            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"]))
+            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"], ctx.guild))
         if not (main.is_int(message_id) or main.is_int(role_id)):
-            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"]))
+            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"], ctx.guild))
             return
         message_id = int(message_id)
         role_id = int(role_id)

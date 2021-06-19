@@ -20,7 +20,12 @@ class JoinRoles(commands.Cog):
     async def join_role(self, ctx, role: discord.Role):
         main.config["join-roles"].append(role.id)
         main.save_config()
-        await ctx.send(main.replace_relevant(main.responses["join-role-success"]).replace("%%role%%", role.name).replace("%%role(mention)%%", role.mention))
+        await ctx.send(main.replace_relevant(main.responses["join-role-success"], ctx.channel.guild).replace("%%role%%", role.name).replace("%%role(mention)%%", role.mention))
+
+    @join_role.error
+    async def join_role_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "join-role")
 
 
 def setup(bot):

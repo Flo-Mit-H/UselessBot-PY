@@ -18,9 +18,9 @@ class Clear(commands.Cog):
             amount = 10
         if main.is_int(amount):
             await ctx.channel.purge(limit=int(amount)+1)
-            await ctx.send(main.replace_relevant(self.responses["clear-command-success"].replace("%%amount%%", str(amount))), delete_after=3)
+            await ctx.send(main.replace_relevant(self.responses["clear-command-success"].replace("%%amount%%", str(amount)), ctx.channel.guild), delete_after=3)
         else:
-            await ctx.send(main.replace_relevant(self.responses["valid-integer"]), delete_after=3)
+            await ctx.send(main.replace_relevant(self.responses["valid-integer"], ctx.channel.guild), delete_after=3)
 
     @clear.error
     async def clear_error(self, ctx, error):
