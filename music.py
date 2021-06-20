@@ -76,20 +76,19 @@ class Music(commands.Cog):
         await ctx.message.add_reaction("👍")
 
     @commands.command()
-    async def play(self, ctx, *, query):
+    async def play(self, ctx, *, url):
 
-        """Plays a fie from the local filesystem"""
+        """Streams from a url (same as yt, but doesn’t predownload"""
 
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
-        ctx.voice_client.play(source, after=lambda e: print(f"Player error: {e}") if e else None)
-
-        await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", query), ctx.guild))
+        async with ctx.typing():
+            player = await YTDLSource.from_url(url, stream=True)
+            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
+        await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", player.title), ctx.guild))
 
     @play.error
     async def play_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
             await main.send_usage(ctx, "play")
-            await ctx.message.add_reaction("❌")
 
     @commands.command()
     async def yt(self, ctx, *, url):
@@ -101,15 +100,10 @@ class Music(commands.Cog):
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
         await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", player.title), ctx.guild))
 
-    @commands.command()
-    async def stream(self, ctx, *, url):
-
-        """Streams from a url (same as yt, but doesn’t predownload"""
-
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, stream=True)
-            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-        await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", player.title), ctx.guild))
+    @yt.error
+    async def yt_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "yt")
 
     @commands.command()
     async def volume(self, ctx, volume: int):
@@ -121,6 +115,11 @@ class Music(commands.Cog):
 
         ctx.voice_client.source.volume = volume / 100
         await ctx.send(main.responses["changed-volume"].replace("%%volume%%", str(volume)))
+
+    @volume.error
+    async def volume_error(self, ctx, error):
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            await main.send_usage(ctx, "volume")
 
     @commands.command()
     async def stop(self, ctx):
@@ -160,7 +159,6 @@ class Music(commands.Cog):
 
     @play.before_invoke
     @yt.before_invoke
-    @stream.before_invoke
     async def ensure_voice(self, ctx):
         """Makes sure the bot can play music"""
         if ctx.voice_client is None:

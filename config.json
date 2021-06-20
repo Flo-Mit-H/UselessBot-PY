@@ -45,7 +45,12 @@
         "not-in-vc": "Du bist in keinem Voice-Channel!",
         "not-connected": "Ich befinde mich nicht in einem Voice-Channel!",
         "now-playing": "**Jetzt Spielt** %%title%%",
-        "changed-volume": "Lautst\u00e4rke auf %%volume%%% ge\u00e4ndert"
+        "changed-volume": "Lautst\u00e4rke auf %%volume%%% ge\u00e4ndert",
+        "leveled-up": "%%mention%% ist nun auf Level %%level%%!",
+        "leveled-up-with-role": "%%mention%% ist nun auf Level %%level%% und erhält somit %%role.mention%%!",
+        "added-level": "%%mention%% Wurden %%level%% Level hinzugefügt!",
+        "removed-level": "%%mention%% Wurden %%level%% Level entfernt!",
+        "reset-level": "%%mention%%´s Level wurden zurückgesetzt"
     },
     "usages": {
         "join-role-usage": "Bitte benutze %%prefix%%joinrole @<role>",
@@ -59,7 +64,12 @@
         "unload-module-usage": "Bitte benutze %%prefix%%unload-module <Modul>",
         "reload-module-usage": "Bitte benutze %%prefix%%reload-module <Modul>",
         "play-usage": "Bitte benutze %%prefix%%play <url>",
-        "prefix-usage": "Bitte benutze %%prefix%%prefix <Neuer Prefix>"
+        "yt-usage": "Bitte benutze %%prefix%%yt <url>",
+        "volume-usage": "Bitte benutze %%prefix%%volume <volume(1-100)>",
+        "prefix-usage": "Bitte benutze %%prefix%%prefix <Neuer Prefix>",
+        "add-level-usage": "Bitte benutze %%prefix%%add-level @<member> <level>",
+        "remove-level-usage": "Bitte benutze %%prefix%%remove-level @<member> <level>",
+        "reset-level-usage": "Bitte benutze %%prefix%%reset-level @<member>"
     },
     "moderation": {
         "log-channel": 853631323004469258,
@@ -67,7 +77,7 @@
         "kick-dm": true,
         "unmute-dm": true,
         "mute-dm": true,
-        "muterole": 855921548790726656
+        "muterole": 854066928673882172
     },
     "minecraft": {
         "prefix": "",
@@ -82,6 +92,13 @@
         "join-message": "Herzlich Willkommen auf dem Server! %%mention%%",
         "join-dm": "Herzlich willkommen auf %%server%%! \ud83e\udd73",
         "leave-message": "%%member%% ist geleaved \ud83d\udc4e"
+    },
+    "leveling": {
+        "level": {
+            "Amateur": 5,
+            "Profi": 10,
+            "Gott": 15
+        }
     },
     "reaction-roles": [],
     "join-roles": []

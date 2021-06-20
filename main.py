@@ -19,7 +19,8 @@ cogs = [
     "music",
     "ping",
     "prefix",
-    "reactroles"
+    "reactroles",
+    "level"
 ]
 for cog in cogs:
     print(f"Loading Extension {cog}")
