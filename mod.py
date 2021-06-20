@@ -97,15 +97,10 @@ class Mod(commands.Cog):
     @has_permissions(manage_roles=True)
     async def createmuterole(self, ctx, name=None):
         guild = ctx.channel.guild
-        print("Queried Guild")
         muterole = await guild.create_role(name=name)
-        print("Created Muterole with queried Guild")
         main.config["moderation"]["muterole"] = muterole.id
-        print("Appended to Config")
         main.save_config()
-        print("Saved Config")
         await ctx.channel.send(main.replace_relevant(main.responses["muterole-created"], ctx.guild))
-        print("Did everything like your mum")
 
     @createmuterole.error
     async def createmuterole_error(self, ctx, error):
