@@ -1,5 +1,5 @@
 venv/
 .idea/
-token.txt
-level-user.json
+config/token.txt
+config/level-user.json
 __pycache__
