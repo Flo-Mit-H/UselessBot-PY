@@ -10,7 +10,7 @@ class Modules(commands.Cog):
 
     @commands.command(aliases=["load-module", "load_extension", "load-extension"])
     async def load_module(self, ctx, module):
-        main.client.load_extension(module)
+        main.bot.load_extension(module)
         await ctx.channel.send(main.replace_relevant(main.responses["load-extension-success"], ctx.guild).replace("%%extension%%", module))
 
     @load_module.error
@@ -20,7 +20,7 @@ class Modules(commands.Cog):
 
     @commands.command(aliases=["unload-module", "unload_extension", "unload-extension"])
     async def unload_module(self, ctx, module):
-        main.client.unload_extension(module)
+        main.bot.unload_extension(module)
         await ctx.channel.send(main.replace_relevant(main.responses["unload-extension-success"], ctx.guild).replace("%%extension%%", module))
 
     @unload_module.error
@@ -38,7 +38,7 @@ class Modules(commands.Cog):
 
     @commands.command(aliases=["reload-module", "reload_extension", "reload-extension"])
     async def reload_module(self, ctx, module):
-        main.client.reload_extension(module)
+        main.bot.reload_extension(module)
         await ctx.channel.send(main.replace_relevant(main.responses["reload-extension-success"], ctx.guild).replace("%%extension%%", module))
 
     @reload_module.error

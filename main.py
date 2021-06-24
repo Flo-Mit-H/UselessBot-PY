@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 config = json.load(open(file="config.json", encoding="UTF-8"))
-client = commands.Bot(command_prefix=config["prefix"], intents=discord.Intents.all())
+bot = commands.Bot(command_prefix=config["prefix"], intents=discord.Intents.all())
 responses = config["responses"]
 usages = config["usages"]
 
@@ -20,11 +20,12 @@ cogs = [
     "ping",
     "prefix",
     "reactroles",
-    "level"
+    "level",
+    "test"
 ]
 for cog in cogs:
     print(f"Loading Extension {cog}")
-    client.load_extension(cog)
+    bot.load_extension(cog)
     print(f"Loaded Extension {cog}")
 
 
@@ -42,14 +43,14 @@ def save_config():
     write_json("config.json", config)
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f"Logged in as {client.user.name}#{client.user.discriminator}")
+    print(f"Logged in as {bot.user.name}#{bot.user.discriminator}")
     print("Initializing Update Task")
-    client.loop.create_task(update_task())
+    bot.loop.create_task(update_task())
     print("Initialized Update Task")
     print("Initializing Status Task")
-    client.loop.create_task(staus_task())
+    bot.loop.create_task(staus_task())
     print("Intialized Status Task")
 
 
@@ -70,19 +71,19 @@ async def staus_task():
             elif statusstr == "offline" or statusstr == "Offline":
                 status = discord.Status.offline
 
-            await client.change_presence(activity=activity, status=status, afk=config["rich-presence"]["states"][i]["afk"])
+            await bot.change_presence(activity=activity, status=status, afk=config["rich-presence"]["states"][i]["afk"])
             await asyncio.sleep(config["rich-presence"]["delay"])
 
 
 async def update_task():
     while True:
-        client.command_prefix = config["prefix"]
+        bot.command_prefix = config["prefix"]
         await asyncio.sleep(1)
 
 
 def replace_relevant(repl, guild):
     repl = repl \
-        .replace("%%ping%%", str(round(client.latency * 1000))) \
+        .replace("%%ping%%", str(round(bot.latency * 1000))) \
         .replace("%%prefix%%", str(config["prefix"])) \
         .replace("%%server%%", guild.name)
     return repl
@@ -112,5 +113,7 @@ async def no_permission(message: discord.Message):
 async def send_usage(ctx, name):
     await ctx.send(replace_relevant(usages[f"{name}-usage"], ctx.guild))
 
+token = open("token.txt", "r").read()
 
-client.run(open("token.txt", "r").read())
+if __name__ == '__main__':
+    bot.run(token)
