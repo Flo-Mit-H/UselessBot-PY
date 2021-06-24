@@ -3,3 +3,4 @@ venv/
 config/token.txt
 config/level-user.json
 __pycache__
+*.log
