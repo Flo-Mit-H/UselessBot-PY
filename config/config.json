@@ -1,0 +1,227 @@
+{
+    "prefix": "!",
+    "server-invite": "https://discord.gg/sfaMmhqMWx",
+    "debug": true,
+    "ffmpeg-path": "C:/Users/Flo/Downloads/ffmpeg-n4.4-72-g91aa49218e-win64-gpl-4.4/ffmpeg-n4.4-72-g91aa49218e-win64-gpl-4.4/bin/ffmpeg.exe",
+    "rich-presence": {
+        "delay": 10,
+        "states": [
+            {
+                "message": "Essen",
+                "status": "idle",
+                "afk": true
+            },
+            {
+                "message": "mit Flo",
+                "status": "online",
+                "afk": false
+            }
+        ]
+    },
+    "responses": {
+        "ping-command": {
+            "content": "Mein Ping ist: %%ping%%ms."
+        },
+        "prefix-command": {
+            "content": "Mein Neuer Prefix ist nun %%prefix%%."
+        },
+        "clear-command-success": {
+            "content": "%%amount%% Nachrichten gel\u00f6scht."
+        },
+        "valid-integer": {
+            "content": "Bitte benutze eine Zahl!"
+        },
+        "member-banned": {
+            "content": "%%member%% wurde wegen %%reason%% gebannt."
+        },
+        "member-kicked": {
+            "content": "%%member%% wurde wegen %%reason%% gekickt."
+        },
+        "dm-banned": {
+            "content": "Du wurdest wegen %%reason%% gebannt."
+        },
+        "dm-kicked": {
+            "content": "Du wurdest wegen %%reason%% gekickt."
+        },
+        "dm-unbanned": {
+            "content": "Du wurdest von %%guild%% entbannt."
+        },
+        "user-unbanned": {
+            "content": "Der User %%user%% wurde entbannt."
+        },
+        "member-not-found": {
+            "content": "Der User wurde nicht gefunden."
+        },
+        "no-permission": {
+            "content": "Dazu hast du keine Rechte!"
+        },
+        "reaction-role-command-invalid": {
+            "content": "Bitte benutze %%prefix%%reactrole <message_id> <emoji> <role_id>"
+        },
+        "reaction-role-command-success": {
+            "content": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!"
+        },
+        "load-extension-success": {
+            "content": "Erweiterung %%extension%% wurde erfolgreich geladen!"
+        },
+        "unload-extension-success": {
+            "content": "Erweiterung %%extension%% wurde erfolgreich entladen!"
+        },
+        "reload-extension-success": {
+            "content": "Erweiterung %%extension%% wurde erfolgreich neu geladen!"
+        },
+        "join-role-success": {
+            "content": "Join-Rolle %%role(mention)%% wurde erfolgreich hinzugef\u00fcgt!"
+        },
+        "no-muterole": {
+            "content": "Es wurde noch keine Muterole erstellt! Zum Erstellen verwende %%prefix%%create-muterole"
+        },
+        "muterole-created": {
+            "content": "Die Mute-Rolle wurde erstellt!"
+        },
+        "dm-muted": {
+            "content": "Du wurdest f\u00fcr %%reason%% gemutet!"
+        },
+        "member-muted": {
+            "content": "%%member%% wurde wegen %%reason%% gemutet"
+        },
+        "member-unmmuted": {
+            "content": "%%member%% wurde entmutet."
+        },
+        "dm-unmuted": {
+            "content": "Du wurdest entmutet"
+        },
+        "not-in-vc": {
+            "content": "Du bist in keinem Voice-Channel!"
+        },
+        "not-connected": {
+            "content": "Ich befinde mich nicht in einem Voice-Channel!"
+        },
+        "now-playing": {
+            "content": "**Jetzt Spielt** %%title%%"
+        },
+        "changed-volume": {
+            "content": "Lautst\u00e4rke auf %%volume%%% ge\u00e4ndert"
+        },
+        "leveled-up": {
+            "content": "%%mention%% ist nun auf Level %%level%%!"
+        },
+        "leveled-up-with-role": {
+            "content": "%%mention%% ist nun auf Level %%level%% und erhält somit %%role.mention%%!"
+        },
+        "added-level": {
+            "content": "%%mention%% Wurden %%level%% Level hinzugefügt!"
+        },
+        "removed-level": {
+            "content": "%%mention%% Wurden %%level%% Level entfernt!"
+        },
+        "reset-level": {
+            "content": "%%mention%%´s Level wurden zurückgesetzt"
+        }
+    },
+    "usages": {
+        "join-role-usage": {
+            "content": "Bitte benutze %%prefix%%joinrole @<role>"
+        },
+        "ban-usage": {
+            "content": "Bitte benutze %%prefix%%ban @<member>"
+        },
+        "kick-usage": {
+            "content": "Bitte benutze %%prefix%%kick @<member>"
+        },
+        "unban-usage": {
+            "content": "Bitte benutze %%prefix%%unban <name>#<tag>"
+        },
+        "mute-usage": {
+            "content": "Bitte benutze %%prefix%%mute @<member>"
+        },
+        "createmuterole-usage": {
+            "content": "Bitte benutze %%prefix%%createmuterole <Name>"
+        },
+        "unmute-usage": {
+            "content": "Bitte benutze %%prefix%%unmute @<member>"
+        },
+        "load-module-usage": {
+            "content": "Bitte benutze %%prefix%%load-module <Modul>"
+        },
+        "unload-module-usage": {
+            "content": "Bitte benutze %%prefix%%unload-module <Modul>"
+        },
+        "reload-module-usage": {
+            "content": "Bitte benutze %%prefix%%reload-module <Modul>"
+        },
+        "play-usage": {
+            "content": "Bitte benutze %%prefix%%play <url>"
+        },
+        "yt-usage": {
+            "content": "Bitte benutze %%prefix%%yt <url>"
+        },
+        "volume-usage": {
+            "content": "Bitte benutze %%prefix%%volume <volume(1-100)>"
+        },
+        "prefix-usage": {
+            "content": "Bitte benutze %%prefix%%prefix <Neuer Prefix>"
+        },
+        "add-level-usage": {
+            "content": "Bitte benutze %%prefix%%add-level @<member> <level>"
+        },
+        "remove-level-usage": {
+            "content": "Bitte benutze %%prefix%%remove-level @<member> <level>"
+        },
+        "reset-level-usage": {
+            "content": "Bitte benutze %%prefix%%reset-level @<member>"
+        }
+    },
+    "moderation": {
+        "log-channel": 853631323004469258,
+        "ban-dm": true,
+        "kick-dm": true,
+        "unmute-dm": true,
+        "mute-dm": true,
+        "muterole": 854066928673882172
+    },
+    "minecraft": {
+        "prefix": "",
+        "console-channel": 853200131708944384,
+        "server-host": "127.0.0.1",
+        "server-port": 25575,
+        "server-password": "1234"
+    },
+    "join-message": {
+        "join-channel": 830164698233045043,
+        "leave-channel": 830164698233045043,
+        "join-message": {
+            "content": "Herzlich Willkommen auf dem Server! %%mention%%"
+        },
+        "join-dm": {
+            "content": "Herzlich willkommen auf %%server%%! \ud83e\udd73"
+        },
+        "leave-message": {
+            "content": "%%member%% ist geleaved \ud83d\udc4e"
+        }
+    },
+    "leveling": {
+        "level": {
+            "Amateur": 5,
+            "Profi": 10,
+            "Gott": 15
+        }
+    },
+    "reaction-roles": [],
+    "join-roles": [],
+    "test": {
+        "content": "Hallo das ist ein Test",
+        "embed": {
+            "title": "Titel",
+            "description": "Beschreibung",
+            "url": "https://discordapp.com",
+            "color": 13310125,
+            "fields": [
+                {
+                    "name": ":regional_indicator_a: ",
+                    "value": "YEET"
+                }
+            ]
+        }
+    }
+}

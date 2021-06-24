@@ -2,6 +2,10 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 
+from utils.math import is_int
+from utils.string import replace_relevant
+from utils.configuration import save_config
+from utils.message import no_permission
 import main
 
 
@@ -60,9 +64,9 @@ class ReactionRoles(commands.Cog):
             role_id = ctx.message.role_mentions[0].id
 
         if message_id is None or emoji is None or role_id is None:
-            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"], ctx.guild))
-        if not (main.is_int(message_id) or main.is_int(role_id)):
-            await ctx.channel.send(main.replace_relevant(main.responses["reaction-role-command-invalid"], ctx.guild))
+            await main.message.send_json(ctx.channel, main.responses["reaction-role-command-invalid"], msg=replace_relevant(main.responses["reaction-role-command-invalid"]["content"], ctx.guild))
+        if not (is_int(message_id) or is_int(role_id)):
+            await main.message.send_json(ctx.channel, main.responses["reaction-role-command-invalid"], msg=replace_relevant(main.responses["reaction-role-command-invalid"]["content"], ctx.guild))
             return
         message_id = int(message_id)
         role_id = int(role_id)
@@ -72,7 +76,7 @@ class ReactionRoles(commands.Cog):
                     "emoji": emoji,
                     "role": role_id
                 })
-                main.save_config()
+                save_config()
                 return
         main.config["reaction-roles"].append({
             "message-id": message_id,
@@ -83,16 +87,16 @@ class ReactionRoles(commands.Cog):
                 }
             ]
         })
-        main.save_config()
+        save_config()
         message = await ctx.fetch_message(message_id)
         await message.add_reaction(emoji)
         await ctx.message.delete()
-        await ctx.channel.send(main.responses["reaction-role-command-success"], delete_after=3)
+        await main.message.send_json(ctx.channel, main.responses["reaction-role-command-success"], delete_after=3)
 
     @reactrole.error
     async def reactrole_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            await main.no_permission(ctx.message)
+            await no_permission(ctx.message)
 
 
 def setup(bot):

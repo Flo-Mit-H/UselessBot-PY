@@ -1,6 +1,9 @@
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 
+from utils.configuration import save_config
+from utils.string import replace_relevant
+from utils.message import no_permission, send_usage
 import main
 
 
@@ -13,15 +16,15 @@ class Prefix(commands.Cog):
     @has_permissions(manage_guild=True)
     async def prefix(self, ctx, new_prefix):
         main.config["prefix"] = new_prefix
-        main.save_config()
-        await ctx.send(main.replace_relevant(main.responses["prefix-command"], ctx.guild))
+        save_config()
+        await main.message.send_json(ctx.channel, main.responses["prefix-command"], msg=replace_relevant(main.responses["prefix-command"]["content"], ctx.guild))
 
     @prefix.error
     async def prefix_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
-            await main.no_permission(ctx.message)
+            await no_permission(ctx.message)
         elif isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "prefix")
+            await send_usage(ctx, "prefix")
 
 
 def setup(bot):

@@ -5,6 +5,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 
+from utils.string import *
+from utils.message import *
 import main
 
 
@@ -24,21 +26,21 @@ async def check_level_up(lvl, message, xp, member: discord.Member):
             if role in member.roles:
                 return
             await member.add_roles(role)
-            msg = main.replace_relevant(main.responses["leveled-up-with-role"], message.guild)
-            msg = main.replace_member(msg, member)
+            msg = replace_relevant(main.responses["leveled-up-with-role"], message.guild)
+            msg = replace_member(msg, member)
             msg = msg.replace("%%role%%", role.name).replace("%%role.mention%%", role.mention) \
                 .replace("%%level%%", str(lvl))
-            return await message.channel.send(msg)
+            return await main.message.send_json(message.channel, main.responses["leveled-up-with-role"], msg=msg)
     if xp == 0:
-        msg = main.replace_relevant(main.responses["leveled-up"], message.guild)
-        msg = main.replace_member(msg, member).replace("%%level%%", str(lvl))
-        await message.channel.send(msg)
+        msg = replace_relevant(main.responses["leveled-up"], message.guild)
+        msg = replace_member(msg, member).replace("%%level%%", str(lvl))
+        await main.message.send_json(message.channel, main.responses["leveled-up"], msg=msg)
 
 
-async def send_success_message(msg, member, level, userdata, ctx):
-    msg = main.replace_member(msg, member)
+async def send_success_message(msg, member, level, userdata, ctx, _json):
+    msg = replace_member(msg, member)
     msg = msg.replace("%%level%%", str(level))
-    await ctx.send(msg)
+    await main.message.send_json(ctx.channel, _json, msg=msg)
 
     xp = userdata[str(member.id)]
     lvl = floor(xp / 100)
@@ -63,7 +65,7 @@ class LevelingSystem(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        with open("level-user.json", "r") as file:
+        with open("../../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if not is_user_exists(userdata, message.author):
@@ -75,7 +77,7 @@ class LevelingSystem(commands.Cog):
             xp -= lvl * 100
             await check_level_up(lvl, message, xp, message.author)
 
-        with open("level-user.json", "w") as file:
+        with open("../../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     # noinspection PyTypeChecker
@@ -83,77 +85,77 @@ class LevelingSystem(commands.Cog):
     @commands.command(aliases=["add-level"])
     @has_permissions(manage_roles=True)
     async def add_level(self, ctx, member: discord.Member, level: int):
-        with open("level-user.json", "r") as file:
+        with open("../../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if not is_user_exists(userdata, member):
             userdata[str(member.id)] = level * 100
         else:
             userdata[str(member.id)] += level * 100
-        msg = main.replace_relevant(main.responses["added-level"], member.guild)
-        msg = main.replace_member(msg, member)
-        await send_success_message(msg, member, level, userdata, ctx)
+        msg = replace_relevant(main.responses["added-level"], member.guild)
+        msg = replace_member(msg, member)
+        await send_success_message(msg, member, level, userdata, ctx, main.responses["added-level"])
 
-        with open("level-user.json", "w") as file:
+        with open("../../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @add_level.error
     async def add_level_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "add-level")
+            await send_usage(ctx, "add-level")
         elif isinstance(error, MissingPermissions):
-            await main.no_permission(ctx.message)
+            await no_permission(ctx.message)
 
     # noinspection PyTypeChecker
     # no inspection above bc PyCharm said member.id doesn´t exist -> https://discordpy.readthedocs.io/en/stable/api.html?highlight=message%20author#discord.Member.id
     @commands.command(aliases=["remove-level"])
     @has_permissions(manage_roles=True)
     async def remove_level(self, ctx, member: discord.Member, level: int):
-        with open("level-user.json", "r") as file:
+        with open("../../config/level-user.json", "r") as file:
             userdata = json.load(file)
         if not is_user_exists(userdata, member):
             userdata[str(member.id)] = 0
         else:
             userdata[str(member.id)] -= level * 100
-        msg = main.replace_relevant(main.responses["removed-level"], member.guild)
+        msg = replace_relevant(main.responses["removed-level"], member.guild)
         await remove_roles(member)
-        await send_success_message(msg, member, level, userdata, ctx)
+        await send_success_message(msg, member, level, userdata, ctx, main.responses["remove-level"])
 
-        with open("level-user.json", "w") as file:
+        with open("../../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @remove_level.error
     async def remove_level_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "remove-level")
+            await send_usage(ctx, "remove-level")
         elif isinstance(error, MissingPermissions):
-            await main.no_permission(ctx.message)
+            await no_permission(ctx.message)
 
     # noinspection PyTypeChecker
     # no inspection above bc PyCharm said member.id doesn´t exist -> https://discordpy.readthedocs.io/en/stable/api.html?highlight=message%20author#discord.Member.id
     @commands.command(aliases=["reset-level"])
     @has_permissions(manage_roles=True)
     async def reset_level(self, ctx, member: discord.Member):
-        with open("level-user.json", "r") as file:
+        with open("../../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if is_user_exists(userdata, member):
             userdata[str(member.id)] = 0
 
         await remove_roles(member)
-        msg = main.replace_relevant(main.responses["reset-level"], member.guild)
-        msg = main.replace_member(msg, member)
-        await ctx.send(msg)
-        with open("level-user.json", "w") as file:
+        msg = replace_relevant(main.responses["reset-level"], member.guild)
+        msg = replace_member(msg, member)
+        await main.message.send_json(ctx.channel, main.responses["reset-level"], msg=msg)
+        with open("../../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @reset_level.error
     async def reset_level_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "reset-level")
+            await send_usage(ctx, "reset-level")
         elif isinstance(error, MissingPermissions):
-            await main.no_permission(ctx.message)
+            await no_permission(ctx.message)
 
 
-def setup(bot):
-    bot.add_cog(LevelingSystem(bot))
+def setup(_bot):
+    _bot.add_cog(LevelingSystem(_bot))

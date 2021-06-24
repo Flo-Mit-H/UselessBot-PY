@@ -1,9 +1,9 @@
 import asyncio
 
-import discord
 import youtube_dl
 from discord.ext import commands
 
+from utils.message import *
 import main
 
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -83,12 +83,13 @@ class Music(commands.Cog):
         async with ctx.typing():
             player = await YTDLSource.from_url(url, stream=True)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-        await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", player.title), ctx.guild))
+        await main.message.send_json(ctx.channel, main.responses["now-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
+                                                                                                      .replace("%%title%%", player.title), ctx.guild))
 
     @play.error
     async def play_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "play")
+            await send_usage(ctx, "play")
 
     @commands.command()
     async def yt(self, ctx, *, url):
@@ -98,12 +99,13 @@ class Music(commands.Cog):
         async with ctx.typing():
             player = await YTDLSource.from_url(url)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-        await ctx.send(main.replace_relevant(main.responses["now-playing"].replace("%%title%%", player.title), ctx.guild))
+        await main.message.send_json(ctx.channel, main.responses["not-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
+                                                                                                      .replace("%%title%%", player.title), ctx.guild))
 
     @yt.error
     async def yt_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "yt")
+            await send_usage(ctx, "yt")
 
     @commands.command()
     async def volume(self, ctx, volume: int):
@@ -114,12 +116,13 @@ class Music(commands.Cog):
             return await ctx.message.add_reaction("❌")
 
         ctx.voice_client.source.volume = volume / 100
-        await ctx.send(main.responses["changed-volume"].replace("%%volume%%", str(volume)))
+        await main.message.send_json(ctx.channel, main.responses["changed-volume"], msg=main.responses["changed-volume"]["content"]
+                                     .replace("%%volume%%", str(volume)))
 
     @volume.error
     async def volume_error(self, ctx, error):
         if isinstance(error, commands.errors.MissingRequiredArgument):
-            await main.send_usage(ctx, "volume")
+            await send_usage(ctx, "volume")
 
     @commands.command()
     async def stop(self, ctx):
@@ -134,7 +137,7 @@ class Music(commands.Cog):
             await voice.disconnect()
             await ctx.message.add_reaction("👍")
         else:
-            await ctx.send(main.replace_relevant(main.responses["not-connected"], ctx.guild))
+            await main.message.send_json(ctx.channel, main.responses["not-connected"], msg=replace_relevant(main.responses["not-connected"]["content"], ctx.guild))
             await ctx.message.add_reaction("❌")
 
     @commands.command()
@@ -165,7 +168,7 @@ class Music(commands.Cog):
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
             else:
-                await ctx.send(main.responses["not-in-vc"])
+                await main.message.send_json(ctx.channel, main.responses["not-in-vc"])
                 raise commands.CommandError("Author not connected to a voice channel")
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()

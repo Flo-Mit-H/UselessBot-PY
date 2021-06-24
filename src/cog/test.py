@@ -1,4 +1,4 @@
-import requests
+import discord
 from discord.ext import commands
 
 import main
@@ -8,17 +8,6 @@ class Test(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
-    @staticmethod
-    def __discord_get(url, params=None, payload=None, session=None):
-        request_headers = {"Authorization", f"Bot {main.token}"}
-        session = requests.Session() if session is None else session
-
-        session.get(f"https://discord.com/api/v9/{url}", params=params)
-
-    @staticmethod
-    def __discord_post():
-        pass
 
     @commands.command()
     async def test(self, ctx):
@@ -55,7 +44,13 @@ class Test(commands.Cog):
         # else:
         #     print(f'Payload delivered successfully! Code: \n{json}\nResult: {result.text}')
 
-        pass
+        # Content
+
+        json = main.config["test"]
+        content = json["content"]
+        embed = discord.Embed.from_dict(json["embed"])
+
+        await ctx.send(content=content, embed=embed)
 
 
 def setup(bot):
