@@ -2,3 +2,4 @@ venv/
 .idea/
 token.txt
 level-user.json
+__pycache__
