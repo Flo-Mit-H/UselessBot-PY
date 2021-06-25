@@ -64,7 +64,7 @@ class LevelingSystem(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        with open("../../config/level-user.json", "r") as file:
+        with open("../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if not is_user_exists(userdata, message.author):
@@ -76,7 +76,7 @@ class LevelingSystem(commands.Cog):
             xp -= lvl * 100
             await check_level_up(lvl, message, xp, message.author)
 
-        with open("../../config/level-user.json", "w") as file:
+        with open("../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     # noinspection PyTypeChecker
@@ -84,7 +84,7 @@ class LevelingSystem(commands.Cog):
     @commands.command(aliases=["add-level"])
     @has_permissions(manage_roles=True)
     async def add_level(self, ctx, member: discord.Member, level: int):
-        with open("../../config/level-user.json", "r") as file:
+        with open("../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if not is_user_exists(userdata, member):
@@ -95,7 +95,7 @@ class LevelingSystem(commands.Cog):
         msg = replace_member(msg, member)
         await send_success_message(msg, member, level, userdata, ctx, main.responses["added-level"])
 
-        with open("../../config/level-user.json", "w") as file:
+        with open("../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @add_level.error
@@ -110,7 +110,7 @@ class LevelingSystem(commands.Cog):
     @commands.command(aliases=["remove-level"])
     @has_permissions(manage_roles=True)
     async def remove_level(self, ctx, member: discord.Member, level: int):
-        with open("../../config/level-user.json", "r") as file:
+        with open("../config/level-user.json", "r") as file:
             userdata = json.load(file)
         if not is_user_exists(userdata, member):
             userdata[str(member.id)] = 0
@@ -120,7 +120,7 @@ class LevelingSystem(commands.Cog):
         await remove_roles(member)
         await send_success_message(msg, member, level, userdata, ctx, main.responses["remove-level"])
 
-        with open("../../config/level-user.json", "w") as file:
+        with open("../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @remove_level.error
@@ -135,7 +135,7 @@ class LevelingSystem(commands.Cog):
     @commands.command(aliases=["reset-level"])
     @has_permissions(manage_roles=True)
     async def reset_level(self, ctx, member: discord.Member):
-        with open("../../config/level-user.json", "r") as file:
+        with open("../config/level-user.json", "r") as file:
             userdata = json.load(file)
 
         if is_user_exists(userdata, member):
@@ -145,7 +145,7 @@ class LevelingSystem(commands.Cog):
         msg = replace_relevant(main.responses["reset-level"], member.guild)
         msg = replace_member(msg, member)
         await send_json(ctx.channel, main.responses["reset-level"], msg=msg)
-        with open("../../config/level-user.json", "w") as file:
+        with open("../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 
     @reset_level.error
