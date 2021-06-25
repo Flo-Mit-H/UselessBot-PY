@@ -1,6 +1,5 @@
 {
     "prefix": "!",
-    "server-invite": "https://discord.gg/sfaMmhqMWx",
     "debug": true,
     "ffmpeg-path": "C:/Users/Flo/Downloads/ffmpeg-n4.4-72-g91aa49218e-win64-gpl-4.4/ffmpeg-n4.4-72-g91aa49218e-win64-gpl-4.4/bin/ffmpeg.exe",
     "rich-presence": {
@@ -20,156 +19,353 @@
     },
     "responses": {
         "ping-command": {
-            "content": "Mein Ping ist: %%ping%%ms."
+            "embed": {
+                "title": "Ping",
+                "fields": [
+                    {
+                        "name": "Mein Ping",
+                        "value": "%%ping%%ms",
+                        "inline": false
+                    }
+                ],
+                "color": 255255
+            }
         },
         "prefix-command": {
-            "content": "Mein Neuer Prefix ist nun %%prefix%%."
+            "embed": {
+                "title": "Prefix",
+                "description": "Mein neuer Prefix ist nun **%%prefix%%**.",
+                "color": 65442
+            }
         },
         "clear-command-success": {
-            "content": "%%amount%% Nachrichten gel\u00f6scht."
+            "embed": {
+                "title": "Clear",
+                "description": "%%amount%% Nachrichten gelöscht",
+                "color": 3039412
+            }
         },
         "valid-integer": {
-            "content": "Bitte benutze eine Zahl!"
+            "embed": {
+                "title": "Ganze Zahl",
+                "description": "Bitte benutze eine ganze Zahl!",
+                "color": 3039412
+            }
         },
         "member-banned": {
-            "content": "%%member%% wurde wegen %%reason%% gebannt."
+            "embed": {
+                "title": "User gebannt",
+                "description": "%%member%% wurde für %%reason%% gebannt.",
+                "color": 15544111
+            }
         },
         "member-kicked": {
-            "content": "%%member%% wurde wegen %%reason%% gekickt."
+            "embed": {
+                "title": "User gekickt",
+                "description": "%%member%% wurde für %%reason%% gekickt.",
+                "color": 15544111
+            }
         },
         "dm-banned": {
-            "content": "Du wurdest wegen %%reason%% gebannt."
+            "embed": {
+                "title": "Du wurdest gebannt",
+                "description": "Grund: %%reason%%",
+                "color": 15544111
+            }
         },
         "dm-kicked": {
-            "content": "Du wurdest wegen %%reason%% gekickt."
-        },
-        "dm-unbanned": {
-            "content": "Du wurdest von %%guild%% entbannt."
+            "embed": {
+                "title": "Du wurdest gekickt",
+                "description": "Grund: %%reason%%",
+                "color": 15544111
+            }
         },
         "user-unbanned": {
-            "content": "Der User %%user%% wurde entbannt."
+            "embed": {
+                "title": "User entbannt",
+                "description": "Der User %%user%% wurde entbannt.",
+                "color": 4975919
+            }
         },
         "member-not-found": {
-            "content": "Der User wurde nicht gefunden."
+            "embed": {
+                "title": "User nicht gefunden",
+                "description": "Der User wurde nicht gefunden.",
+                "color": 15544111
+            }
         },
         "no-permission": {
-            "content": "Dazu hast du keine Rechte!"
+            "embed": {
+                "title": "Keine Rechte",
+                "description": "Dazu hast du keine Rechte!",
+                "color": 15544111
+            }
         },
         "reaction-role-command-invalid": {
-            "content": "Bitte benutze %%prefix%%reactrole <message_id> <emoji> <role_id>"
+            "embed": {
+                "title": "Falscher Command!",
+                "description": "Bitte benutze %%prefix%%reactrole <message_id> <emoji> <role_id>",
+                "color": 15544111
+            }
         },
         "reaction-role-command-success": {
-            "content": "Reaction-Role wurde erfolgreich hinzugef\u00fcgt!"
+            "embed": {
+                "title": "Reaction Role Hinzugefügt",
+                "description": "Reaction-Role wurde erfolgreich hinzugefügt!",
+                "color": 1244976
+            }
         },
         "load-extension-success": {
-            "content": "Erweiterung %%extension%% wurde erfolgreich geladen!"
+            "embed": {
+                "title": "Erweiterung geladen",
+                "description": "Erweiterung wurde erfolgreich geladen!",
+                "color": 1244976
+            }
         },
         "unload-extension-success": {
-            "content": "Erweiterung %%extension%% wurde erfolgreich entladen!"
+            "embed": {
+                "title": "Erweiterung geladen",
+                "description": "Erweiterung wurde erfolgreich entladen!",
+                "color": 1244976
+            }
         },
         "reload-extension-success": {
-            "content": "Erweiterung %%extension%% wurde erfolgreich neu geladen!"
+            "embed": {
+                "title": "Erweiterung geladen",
+                "description": "Erweiterung wurde erfolgreich neu geladen!",
+                "color": 1244976
+            }
         },
         "join-role-success": {
-            "content": "Join-Rolle %%role(mention)%% wurde erfolgreich hinzugef\u00fcgt!"
+            "embed": {
+                "title": "Join-Role",
+                "description": "Join-Role %%role(mention)%% wurde erfolgreich hinzugefügt!",
+                "color": 1244976
+            }
         },
         "no-muterole": {
-            "content": "Es wurde noch keine Muterole erstellt! Zum Erstellen verwende %%prefix%%create-muterole"
+            "embed": {
+                "title": "Keine Muterole",
+                "description": "Es wurde noch keine Muterole erstellt! Zum erstellen verwende %%prefix%%create-muterole",
+                "color": 13632027
+            }
         },
         "muterole-created": {
-            "content": "Die Mute-Rolle wurde erstellt!"
+            "embed": {
+                "title": "",
+                "description": "",
+                "color": 1244976
+            }
         },
         "dm-muted": {
-            "content": "Du wurdest f\u00fcr %%reason%% gemutet!"
+            "embed": {
+                "title": "Du wurdest gemutet",
+                "description": "Du wurdest für %%reason%% gemutet!",
+                "color": 13632027
+            }
         },
         "member-muted": {
-            "content": "%%member%% wurde wegen %%reason%% gemutet"
+            "embed": {
+                "title": "User gemutet",
+                "description": "%%member%% wurde für %%reason%% gemutet!",
+                "color": 13632027
+            }
         },
         "member-unmmuted": {
-            "content": "%%member%% wurde entmutet."
+            "embed": {
+                "title": "User entmutet",
+                "description": "%%member%% wurde entmutet!",
+                "color": 1244976
+            }
         },
         "dm-unmuted": {
-            "content": "Du wurdest entmutet"
+            "embed": {
+                "title": "Du wurdest entmutet",
+                "description": "Du wurdest entmutet!",
+                "color": 1244976
+            }
         },
         "not-in-vc": {
-            "content": "Du bist in keinem Voice-Channel!"
+            "embed": {
+                "title": "Du bist in keinem Voice-Channel!",
+                "color": 13632027
+            }
         },
         "not-connected": {
-            "content": "Ich befinde mich nicht in einem Voice-Channel!"
+            "embed": {
+                "title": "Ich befinde mich nicht in einem Voice-Channel!",
+                "color": 13632027
+            }
         },
         "now-playing": {
-            "content": "**Jetzt Spielt** %%title%%"
+            "embed": {
+                "title": "Jetzt Spielt",
+                "description": "**%%title%%**",
+                "color": 180688
+            }
         },
         "changed-volume": {
-            "content": "Lautst\u00e4rke auf %%volume%%% ge\u00e4ndert"
+            "embed": {
+                "title": "Lautstärke geändert",
+                "description": "Die Lautstärke wurde auf %%volume%% geändert.",
+                "color": 180688
+            }
         },
         "leveled-up": {
-            "content": "%%mention%% ist nun auf Level %%level%%!"
+            "embed": {
+                "title": "%%mention%%",
+                "description": "Ist nun auf Level %%level%%!",
+                "color": 9013641
+            }
         },
         "leveled-up-with-role": {
-            "content": "%%mention%% ist nun auf Level %%level%% und erhält somit %%role.mention%%!"
+            "embed": {
+                "title": "%%mention%%",
+                "description": "Ist nun auf Level %%level%% und erhält somit %%role.mention%%!",
+                "color": 9013641
+            }
         },
         "added-level": {
-            "content": "%%mention%% Wurden %%level%% Level hinzugefügt!"
+            "embed": {
+                "title": "%%mention%%",
+                "description": "Wurden %%level%% Level hinzugefügt!",
+                "color": 9013641
+            }
         },
         "removed-level": {
-            "content": "%%mention%% Wurden %%level%% Level entfernt!"
+            "embed": {
+                "title": "%%mention%%",
+                "description": "Wurden %%level%% Level entfernt!",
+                "color": 9013641
+            }
         },
         "reset-level": {
-            "content": "%%mention%%´s Level wurden zurückgesetzt"
+            "embed": {
+                "title": "%%mention%%´s",
+                "description": "Level wurden zurückgesetzt!",
+                "color": 13632027
+            }
         }
     },
     "usages": {
         "join-role-usage": {
-            "content": "Bitte benutze %%prefix%%joinrole @<role>"
+            "embed": {
+                "title": "joinrole",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%joinrole @<role>"
+            }
         },
         "ban-usage": {
-            "content": "Bitte benutze %%prefix%%ban @<member>"
+            "embed": {
+                "title": "joinrole",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%ban @<member>"
+            }
         },
         "kick-usage": {
-            "content": "Bitte benutze %%prefix%%kick @<member>"
+            "embed": {
+                "title": "kick",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%kick @<member>"
+            }
         },
         "unban-usage": {
-            "content": "Bitte benutze %%prefix%%unban <name>#<tag>"
+            "embed": {
+                "title": "unban",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%unban <name>#<tag>"
+            }
         },
         "mute-usage": {
-            "content": "Bitte benutze %%prefix%%mute @<member>"
+            "embed": {
+                "title": "mute",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%mute @<member>"
+            }
         },
         "createmuterole-usage": {
-            "content": "Bitte benutze %%prefix%%createmuterole <Name>"
+            "embed": {
+                "title": "createmuterole",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%createmuterole <Name>"
+            }
         },
         "unmute-usage": {
-            "content": "Bitte benutze %%prefix%%unmute @<member>"
+            "embed": {
+                "title": "unmute",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%unmute @<member>"
+            }
         },
         "load-module-usage": {
-            "content": "Bitte benutze %%prefix%%load-module <Modul>"
+            "embed": {
+                "title": "load-module",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%load-module <Modul>"
+            }
         },
         "unload-module-usage": {
-            "content": "Bitte benutze %%prefix%%unload-module <Modul>"
+            "embed": {
+                "title": "unload-module",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%unload-module <Modul>"
+            }
         },
         "reload-module-usage": {
-            "content": "Bitte benutze %%prefix%%reload-module <Modul>"
+            "embed": {
+                "title": "reload-module",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%reload-module <Modul>"
+            }
         },
         "play-usage": {
-            "content": "Bitte benutze %%prefix%%play <url>"
+            "embed": {
+                "title": "play",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%play <url>"
+            }
         },
         "yt-usage": {
-            "content": "Bitte benutze %%prefix%%yt <url>"
+            "embed": {
+                "title": "yt",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%yt <url>"
+            }
         },
         "volume-usage": {
-            "content": "Bitte benutze %%prefix%%volume <volume(1-100)>"
+            "embed": {
+                "title": "volume",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%volume <volume(1-100)>"
+            }
         },
         "prefix-usage": {
-            "content": "Bitte benutze %%prefix%%prefix <Neuer Prefix>"
+            "embed": {
+                "title": "prefix",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%prefix <Neuer Prefix>"
+            }
         },
         "add-level-usage": {
-            "content": "Bitte benutze %%prefix%%add-level @<member> <level>"
+            "embed": {
+                "title": "add-level",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%add-level @<member> <level>"
+            }
         },
         "remove-level-usage": {
-            "content": "Bitte benutze %%prefix%%remove-level @<member> <level>"
+            "embed": {
+                "title": "remove-level",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%remove-level @<member> <level>"
+            }
         },
         "reset-level-usage": {
-            "content": "Bitte benutze %%prefix%%reset-level @<member>"
+            "embed": {
+                "title": "reset-level",
+                "color": 16065893,
+                "description": "Bitte benutze %%prefix%%reset-level @<member>"
+            }
         }
     },
     "moderation": {
@@ -191,13 +387,25 @@
         "join-channel": 830164698233045043,
         "leave-channel": 830164698233045043,
         "join-message": {
-            "content": "Herzlich Willkommen auf dem Server! %%mention%%"
+            "embed": {
+                "title": "Willkommen",
+                "color": 52084,
+                "description": "Herzlich Willkommen %%mention%% auf %%server%%"
+            }
         },
         "join-dm": {
-            "content": "Herzlich willkommen auf %%server%%! \ud83e\udd73"
+            "embed": {
+                "title": "Willkommen",
+                "color": 52084,
+                "description": "Herzlich Willkommen auf %%server%% \uD83E\uDD73"
+            }
         },
         "leave-message": {
-            "content": "%%member%% ist geleaved \ud83d\udc4e"
+            "embed": {
+                "title": "Tschüss 👎",
+                "color": 52084,
+                "description": "%%member%% hat verlassen 😭"
+            }
         }
     },
     "leveling": {
@@ -223,5 +431,9 @@
                 }
             ]
         }
+    },
+    "storage": {
+        "embed-visualizer": "https://ogd.systems/DiscordEmbedBuilder/",
+        "rds-invite": "https://discord.gg/sfaMmhqMWx"
     }
 }
