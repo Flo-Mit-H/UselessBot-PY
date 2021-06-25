@@ -3,7 +3,7 @@ from discord.ext.commands import has_permissions, MissingPermissions
 
 import main
 from utils.math import is_int
-from utils.message import replace_relevant, no_permission
+from utils.message import replace_relevant, no_permission, send_json
 
 
 class Clear(commands.Cog):
@@ -20,9 +20,9 @@ class Clear(commands.Cog):
             amount = 10
         if is_int(amount):
             await ctx.channel.purge(limit=int(amount)+1)
-            await main.message.send_json(ctx.channel, replace_relevant(self.responses["clear-command-success"].replace("%%amount%%", str(amount)), ctx.channel.guild), delete_after=3)
+            await send_json(ctx.channel, replace_relevant(self.responses["clear-command-success"].replace("%%amount%%", str(amount)), ctx.channel.guild), delete_after=3)
         else:
-            await main.message.send_json(ctx.channel, replace_relevant(self.responses["valid-integer"], ctx.channel.guild), delete_after=3)
+            await send_json(ctx.channel, replace_relevant(self.responses["valid-integer"], ctx.channel.guild), delete_after=3)
 
     @clear.error
     async def clear_error(self, ctx, error):

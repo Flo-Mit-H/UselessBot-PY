@@ -5,8 +5,6 @@ import discord
 from discord.ext import commands
 
 from utils.configuration import config
-# This import is for thingys cuz im to dumb for python
-import utils.message as message
 
 # define nescessary variables
 bot = commands.Bot(command_prefix=config["prefix"], intents=discord.Intents.all())
@@ -33,7 +31,8 @@ class Application:
         "music",
         "ping",
         "prefix",
-        "reactroles"
+        "reactroles",
+        "stop"
     ]
 
     def __init__(self, discord_bot, bot_token):

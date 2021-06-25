@@ -15,13 +15,13 @@ class Mod(commands.Cog):
     @has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
         if main.config["moderation"]["ban-dm"]:
-            await main.message.send_json(member, main.responses["dm-banned"], msg=replace_relevant(main.responses["dm-banned"]["content"], member.guild).replace("%%reason%%", str(reason)))
+            await send_json(member, main.responses["dm-banned"], msg=replace_relevant(main.responses["dm-banned"]["content"], member.guild).replace("%%reason%%", str(reason)))
         await member.ban(reason=reason)
-        await main.message.send_json(ctx.channel, main.responses["member-banned"], msg=replace_relevant(main.responses["member-banned"]["content"]
+        await send_json(ctx.channel, main.responses["member-banned"], msg=replace_relevant(main.responses["member-banned"]["content"]
                                                                                                         .replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                                                                         .replace("%%reason%%", str(reason)), ctx.channel.guild), delete_after=3)
         channel = self.bot.get_channel(main.config["moderation"]["log-channel"])
-        await main.message.send_json(channel, main.responses["member-banned"], msg=replace_relevant(main.responses["member-banned"]["content"]
+        await send_json(channel, main.responses["member-banned"], msg=replace_relevant(main.responses["member-banned"]["content"]
                                                                                                     .replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                                                                     .replace("%%reason%%", str(reason)), channel.guild))
 
@@ -36,13 +36,13 @@ class Mod(commands.Cog):
     @has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
         if main.config["moderation"]["kick-dm"]:
-            await main.message.send_json(member, main.responses["dm-kicked"], msg=replace_relevant(main.responses["dm-kicked"]["content"], member.guild).replace("%%reason%%", str(reason)))
+            await send_json(member, main.responses["dm-kicked"], msg=replace_relevant(main.responses["dm-kicked"]["content"], member.guild).replace("%%reason%%", str(reason)))
         await member.kick(reason=str(reason))
-        await main.message.send_json(ctx.channel, main.responses["dm-kicked"], msg=replace_relevant(main.responses["member-kicked"]["content"]
+        await send_json(ctx.channel, main.responses["dm-kicked"], msg=replace_relevant(main.responses["member-kicked"]["content"]
                                                                                                     .replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                                                                     .replace("%%reason%%", str(reason)), ctx.channel.guild), delete_after=3)
         channel = self.bot.get_channel(main.config["moderation"]["log-channel"])
-        await main.message.send_json(member, main.responses["member-kicked"], msg=replace_relevant(main.responses["member-kicked"]["content"]
+        await send_json(member, main.responses["member-kicked"], msg=replace_relevant(main.responses["member-kicked"]["content"]
                                                                                                    .replace("%%member%%", f"{member.name}#{member.discriminator}")
                                                                                                    .replace("%%reason%%", str(reason)), channel.guild))
 
@@ -64,7 +64,7 @@ class Mod(commands.Cog):
 
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
-                await main.message.send_json(ctx.channel, main.responses["user-unbanned"], msg=replace_relevant(main.responses["user-unbanned"]["content"]
+                await send_json(ctx.channel, main.responses["user-unbanned"], msg=replace_relevant(main.responses["user-unbanned"]["content"]
                                                                                                                 .replace("%%user%%", f"{user.name}#{user.discriminator}"), ctx.guild))
                 return
 
@@ -80,17 +80,17 @@ class Mod(commands.Cog):
     async def mute(self, ctx, member: discord.Member, *, reason=None):
         muterole = main.config["moderation"]["muterole"]
         if muterole is None or muterole == "":
-            await main.message.send_json(ctx.channel, main.responses["no-muterole"], msg=replace_relevant(main.responses["no-muterole"]["content"], ctx.guild))
+            await send_json(ctx.channel, main.responses["no-muterole"], msg=replace_relevant(main.responses["no-muterole"]["content"], ctx.guild))
             return
         muterole = member.guild.get_role(muterole)
         await member.add_roles(muterole)
-        await main.message.send_json(ctx.channel, main.responses["member-muted"], msg=replace_relevant(main.responses["member-muted"]["content"], ctx.guild)
+        await send_json(ctx.channel, main.responses["member-muted"], msg=replace_relevant(main.responses["member-muted"]["content"], ctx.guild)
                                      .replace("%%member%%", f"{member.name}#{member.discriminator}").replace("%%reason%%", str(reason)), delete_after=3)
         channel = self.bot.get_channel(main.config["moderation"]["log-channel"])
-        await main.message.send_json(channel, main.responses["member-muted"], msg=replace_relevant(main.responses["member-muted"]["content"], channel.guild)
+        await send_json(channel, main.responses["member-muted"], msg=replace_relevant(main.responses["member-muted"]["content"], channel.guild)
                                      .replace("%%member%%", f"{member.name}#{member.discriminator}").replace("%%reason%%", str(reason)))
         if main.config["moderation"]["mute-dm"]:
-            await main.message.send_json(member, main.responses["dm-muted"], msg=replace_relevant(main.responses["dm-muted"]["content"], member.guild).replace("%%reason%%", str(reason)))
+            await send_json(member, main.responses["dm-muted"], msg=replace_relevant(main.responses["dm-muted"]["content"], member.guild).replace("%%reason%%", str(reason)))
 
     @mute.error
     async def mute_error(self, ctx, error):
@@ -106,7 +106,7 @@ class Mod(commands.Cog):
         muterole = await guild.create_role(name=name)
         main.config["moderation"]["muterole"] = muterole.id
         utils.configuration.save_config()
-        await main.message.send_json(ctx.channel, main.responses["muterole-created"], msg=replace_relevant(main.responses["muterole-created"]["content"], ctx.guild))
+        await send_json(ctx.channel, main.responses["muterole-created"], msg=replace_relevant(main.responses["muterole-created"]["content"], ctx.guild))
 
     @createmuterole.error
     async def createmuterole_error(self, ctx, error):
@@ -121,17 +121,17 @@ class Mod(commands.Cog):
         guild = ctx.channel.guild
         muterole = main.config["moderation"]["muterole"]
         if muterole is None or muterole == "":
-            await main.message.send_json(ctx.channel, main.responses["no-muterole"], msg=replace_relevant(main.responses["no-muterole"]["content"], ctx.guild))
+            await send_json(ctx.channel, main.responses["no-muterole"], msg=replace_relevant(main.responses["no-muterole"]["content"], ctx.guild))
             return
         muterole = guild.get_role(muterole)
         await member.remove_roles(muterole)
         channel = self.bot.get_channel(main.config["moderation"]["log-channel"])
-        await main.message.send_json(channel, main.responses["member-unmuted"], msg=replace_relevant(main.responses["member-unmmuted"]["content"], channel.guild)
+        await send_json(channel, main.responses["member-unmuted"], msg=replace_relevant(main.responses["member-unmmuted"]["content"], channel.guild)
                                      .replace("%%member%%", f"{member.name}#{member.discriminator}"))
-        await main.message.send_json(ctx.channel, main.responses["member-unmuted"], msg=replace_relevant(main.responses["member-unmmuted"]["content"], ctx.guild)
+        await send_json(ctx.channel, main.responses["member-unmuted"], msg=replace_relevant(main.responses["member-unmmuted"]["content"], ctx.guild)
                                      .replace("%%member%%", f"{member.name}#{member.discriminator}"))
         if main.config["moderation"]["unmute-dm"]:
-            await main.message.send_json(member, main.responses["dm-unmuted"], msg=replace_relevant(main.responses["dm-unmuted"]["content"], member.guild))
+            await send_json(member, main.responses["dm-unmuted"], msg=replace_relevant(main.responses["dm-unmuted"]["content"], member.guild))
 
     @unmute.error
     async def unmute_error(self, ctx, error):

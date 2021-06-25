@@ -83,7 +83,7 @@ class Music(commands.Cog):
         async with ctx.typing():
             player = await YTDLSource.from_url(url, stream=True)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-        await main.message.send_json(ctx.channel, main.responses["now-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
+        await send_json(ctx.channel, main.responses["now-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
                                                                                                       .replace("%%title%%", player.title), ctx.guild))
 
     @play.error
@@ -99,7 +99,7 @@ class Music(commands.Cog):
         async with ctx.typing():
             player = await YTDLSource.from_url(url)
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-        await main.message.send_json(ctx.channel, main.responses["not-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
+        await send_json(ctx.channel, main.responses["not-playing"], msg=replace_relevant(main.responses["now-playing"]["content"]
                                                                                                       .replace("%%title%%", player.title), ctx.guild))
 
     @yt.error
@@ -116,7 +116,7 @@ class Music(commands.Cog):
             return await ctx.message.add_reaction("❌")
 
         ctx.voice_client.source.volume = volume / 100
-        await main.message.send_json(ctx.channel, main.responses["changed-volume"], msg=main.responses["changed-volume"]["content"]
+        await send_json(ctx.channel, main.responses["changed-volume"], msg=main.responses["changed-volume"]["content"]
                                      .replace("%%volume%%", str(volume)))
 
     @volume.error
@@ -137,7 +137,7 @@ class Music(commands.Cog):
             await voice.disconnect()
             await ctx.message.add_reaction("👍")
         else:
-            await main.message.send_json(ctx.channel, main.responses["not-connected"], msg=replace_relevant(main.responses["not-connected"]["content"], ctx.guild))
+            await send_json(ctx.channel, main.responses["not-connected"], msg=replace_relevant(main.responses["not-connected"]["content"], ctx.guild))
             await ctx.message.add_reaction("❌")
 
     @commands.command()
@@ -168,7 +168,7 @@ class Music(commands.Cog):
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
             else:
-                await main.message.send_json(ctx.channel, main.responses["not-in-vc"])
+                await send_json(ctx.channel, main.responses["not-in-vc"])
                 raise commands.CommandError("Author not connected to a voice channel")
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()

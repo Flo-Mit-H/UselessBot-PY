@@ -4,7 +4,7 @@ from discord.ext import commands
 import main
 from utils.configuration import save_config
 from utils.string import replace_relevant
-from utils.message import send_usage
+from utils.message import send_usage, send_json
 
 
 class JoinRoles(commands.Cog):
@@ -23,7 +23,7 @@ class JoinRoles(commands.Cog):
     async def join_role(self, ctx, role: discord.Role):
         main.config["join-roles"].append(role.id)
         save_config()
-        await main.message.send_json(ctx.channel, main.responses["join-role-success"], msg=replace_relevant(main.responses["join-role-success"], ctx.channel.guild).replace("%%role%%", role.name).replace("%%role(mention)%%", role.mention))
+        await send_json(ctx.channel, main.responses["join-role-success"], msg=replace_relevant(main.responses["join-role-success"], ctx.channel.guild).replace("%%role%%", role.name).replace("%%role(mention)%%", role.mention))
 
     @join_role.error
     async def join_role_error(self, ctx, error):

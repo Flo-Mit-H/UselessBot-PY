@@ -1,7 +1,6 @@
 import json
 from math import floor
 
-import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 
@@ -30,17 +29,17 @@ async def check_level_up(lvl, message, xp, member: discord.Member):
             msg = replace_member(msg, member)
             msg = msg.replace("%%role%%", role.name).replace("%%role.mention%%", role.mention) \
                 .replace("%%level%%", str(lvl))
-            return await main.message.send_json(message.channel, main.responses["leveled-up-with-role"], msg=msg)
+            return await send_json(message.channel, main.responses["leveled-up-with-role"], msg=msg)
     if xp == 0:
         msg = replace_relevant(main.responses["leveled-up"], message.guild)
         msg = replace_member(msg, member).replace("%%level%%", str(lvl))
-        await main.message.send_json(message.channel, main.responses["leveled-up"], msg=msg)
+        await send_json(message.channel, main.responses["leveled-up"], msg=msg)
 
 
 async def send_success_message(msg, member, level, userdata, ctx, _json):
     msg = replace_member(msg, member)
     msg = msg.replace("%%level%%", str(level))
-    await main.message.send_json(ctx.channel, _json, msg=msg)
+    await send_json(ctx.channel, _json, msg=msg)
 
     xp = userdata[str(member.id)]
     lvl = floor(xp / 100)
@@ -145,7 +144,7 @@ class LevelingSystem(commands.Cog):
         await remove_roles(member)
         msg = replace_relevant(main.responses["reset-level"], member.guild)
         msg = replace_member(msg, member)
-        await main.message.send_json(ctx.channel, main.responses["reset-level"], msg=msg)
+        await send_json(ctx.channel, main.responses["reset-level"], msg=msg)
         with open("../../config/level-user.json", "w") as file:
             json.dump(userdata, file)
 

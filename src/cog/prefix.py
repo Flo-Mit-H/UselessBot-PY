@@ -3,7 +3,7 @@ from discord.ext.commands import has_permissions, MissingPermissions
 
 from utils.configuration import save_config
 from utils.string import replace_relevant
-from utils.message import no_permission, send_usage
+from utils.message import no_permission, send_usage, send_json
 import main
 
 
@@ -17,7 +17,7 @@ class Prefix(commands.Cog):
     async def prefix(self, ctx, new_prefix):
         main.config["prefix"] = new_prefix
         save_config()
-        await main.message.send_json(ctx.channel, main.responses["prefix-command"], msg=replace_relevant(main.responses["prefix-command"]["content"], ctx.guild))
+        await send_json(ctx.channel, main.responses["prefix-command"], msg=replace_relevant(main.responses["prefix-command"]["content"], ctx.guild))
 
     @prefix.error
     async def prefix_error(self, ctx, error):

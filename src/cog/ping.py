@@ -1,6 +1,7 @@
 from discord.ext import commands
 from utils.string import replace_relevant
 import main
+from utils.message import send_json
 
 
 class Ping(commands.Cog):
@@ -10,7 +11,7 @@ class Ping(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        await main.message.send_json(ctx.channel, main.responses["ping-command"], msg=replace_relevant(main.responses["ping-command"]["content"], ctx.guild))
+        await send_json(ctx.channel, main.responses["ping-command"], msg=replace_relevant(main.responses["ping-command"]["content"], ctx.guild))
 
 
 def setup(bot):
