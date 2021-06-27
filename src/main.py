@@ -1,5 +1,7 @@
 import asyncio
+import json
 import logging
+import os
 
 import discord
 from discord.ext import commands
@@ -40,6 +42,10 @@ class Application:
         self.bot = discord_bot
         self.logger = logging.getLogger("main")
         self.logger.setLevel(logging.DEBUG if config["debug"] else logging.INFO)
+
+        if not os.path.isfile("../config/config.json"):
+            with open("../config/config.json", "w") as f:
+                json.dump({"prefix": "!"}, f, indent=4)
 
         self.load_extensions()
 
