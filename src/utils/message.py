@@ -1,3 +1,5 @@
+import json
+
 import discord
 import requests
 
@@ -60,6 +62,8 @@ def discord_post(url, params=None, session=None):
 
 
 async def send_json(channel, json_data, *, tts=False, file=None, files=None, delete_after=None, nonce=None, allowed_mentions=None, reference=None, mention_author=None, msg=None):
+    json_data = json.loads(replace_relevant(json.dumps(json_data), channel.guild))
+
     if str(json_data) == json_data:
         msg = json_data
     else:

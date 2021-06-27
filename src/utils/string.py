@@ -1,3 +1,5 @@
+import json
+
 import discord
 
 from main import bot, config
@@ -18,3 +20,35 @@ def replace_member(s, member: discord.Member):
         .replace("%%discriminator%%", member.discriminator) \
         .replace("%%mention%%", member.mention)
     return s
+
+
+def replace_json(json_data, repl_dict):
+    data = json.dumps(json_data)
+
+    for m in repl_dict:
+        data = data.replace(m, repl_dict[m])
+
+    return json.loads(data)
+
+
+def replace_json_relevant(repl, guild):
+    return replace_json(
+        repl,
+        {
+            "%%member%%": str(round(bot.latency * 1000)),
+            "%%prefix%%": str(config["prefix"]),
+            "%%server%%": guild.name
+        }
+    )
+
+
+def replace_json_member(repl, member):
+    return replace_json(
+        repl,
+        {
+            "%%member%%": f"{member.name}#{member.discriminator}",
+            "%%name%%": member.name,
+            "%%discriminator%%": member.discriminator,
+            "%%mention%%": member.mention
+        }
+    )
