@@ -434,6 +434,7 @@
     },
     "storage": {
         "embed-visualizer": "https://ogd.systems/DiscordEmbedBuilder/",
-        "rds-invite": "https://discord.gg/sfaMmhqMWx"
+        "rds-invite": "https://discord.gg/sfaMmhqMWx",
+        "authorize": "https://discord.com/oauth2/authorize?client_id=853591496103165962&permissions=8&scope=bot"
     }
 }

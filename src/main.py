@@ -34,7 +34,8 @@ class Application:
         "ping",
         "prefix",
         "reactroles",
-        "stop"
+        "stop",
+        "global"
     ]
 
     def __init__(self, discord_bot, bot_token):
